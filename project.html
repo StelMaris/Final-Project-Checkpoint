@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEB-115 Final Project</title>
+    <link rel="stylesheet" href="styles.css"> <!-- You can create a separate CSS file for styling -->
+</head>
+<body>
+    <h1>Meal Planner</h1>
+    <form id="mealForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="goal">Goal for the week:</label>
+        <textarea id="goal" rows="4" required></textarea>
+
+        <h2>Meal Plan</h2>
+        <!-- Input fields for 5 meals -->
+        <!-- You can add more fields as needed -->
+        <label for="breakfast">Breakfast:</label>
+        <input type="text" id="breakfast">
+
+        <label for="snack1">Snack 1:</label>
+        <input type="text" id="snack1">
+
+        <label for="lunch">Lunch:</label>
+        <input type="text" id="lunch">
+
+        <label for="snack2">Snack 2:</label>
+        <input type="text" id="snack2">
+
+        <label for="dinner">Dinner:</label>
+        <input type="text" id="dinner">
+
+        <button type="button" onclick="generateMealPlan()">Generate Meal Plan</button>
+        <button type="button" onclick="clearMealPlan()">Clear Meal Plan</button>
+    </form>
+
+    <script>
+        function generateMealPlan() {
+    // Validate email address
+    var email = document.getElementById("email").value;
+    if (!isValidEmail(email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+    // Get user input values
+    var name = document.getElementById("name").value;
+    var goal = document.getElementById("goal").value;
+    var meals = {
+        breakfast: document.getElementById("breakfast").value,
+        snack1: document.getElementById("snack1").value,
+        lunch: document.getElementById("lunch").value,
+        snack2: document.getElementById("snack2").value,
+        dinner: document.getElementById("dinner").value
+    };
+
+    // Create a new window for displaying the meal plan
+    var mealPlanWindow = window.open();
+    mealPlanWindow.document.write("<html><head><title>Meal Plan</title></head><body>");
+    
+    // Populate the new window with user input
+    mealPlanWindow.document.write("<h1>Meal Plan for " + name + "</h1>");
+    mealPlanWindow.document.write("<p><strong>Goal for the week:</strong> " + goal + "</p>");
+    mealPlanWindow.document.write("<h2>Meal Plan</h2>");
+    mealPlanWindow.document.write("<ul>");
+    for (var meal in meals) {
+        mealPlanWindow.document.write("<li><strong>" + meal + ":</strong> " + meals[meal] + "</li>");
+    }
+    mealPlanWindow.document.write("</ul>");
+
+    mealPlanWindow.document.write("</body></html>");
+}
+
+function clearMealPlan() {
+    // Clear input fields
+    var form = document.getElementById("mealForm");
+    form.reset();
+}
+
+function isValidEmail(email) {
+    // Simple email validation
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+    </script>
+</body>
+</html>
+
+
